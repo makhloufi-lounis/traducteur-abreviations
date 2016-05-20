@@ -10,6 +10,28 @@
 namespace Application;
 
 return array(
+	'doctrine' => array (
+				'driver' => array (
+						// overriding zfc-user-doctrine-orm's config
+						'zfcuser_entity' => array (
+								'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+								'paths' => __DIR__ . '/../../Core/src/Core/Entity' 
+						),
+						
+						'orm_default' => array (
+								'drivers' => array (
+										'Core\Entity' => 'zfcuser_entity' 
+								) 
+						) 
+				) 
+	),
+		
+	'zfcuser' => array (
+				// telling ZfcUser to use our own class
+				'user_entity_class' => 'Core\Entity\User',
+				// telling ZfcUserDoctrineORM to skip the entities it defines
+				'enable_default_entities' => false 
+	),
     'router' => array(
         'routes' => array(
             'home' => array(
@@ -52,30 +74,45 @@ return array(
                     ),
                 ),
             ),
+        	'login' => array(
+        				'type'    => 'Zend\Mvc\Router\Http\Literal',
+        				'options' => array(
+        						'route'    => '/user/login',
+        						'defaults' => array(
+        								'controller' => 'zfc-user\Controller\User',
+        								'action'     => 'login',
+        						),
+        				),
+        	),
         ),
     ),
-    'service_manager' => array(
-        'abstract_factories' => array(
-            'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
-            'Zend\Log\LoggerAbstractServiceFactory',
-        ),
-        'factories' => array(
-            'translator' => 'Zend\Mvc\Service\TranslatorServiceFactory',
-        ),
-    ),
-    'translator' => array(
-        'locale' => 'en_US',
-        'translation_file_patterns' => array(
-            array(
-                'type'     => 'gettext',
-                'base_dir' => __DIR__ . '/../language',
-                'pattern'  => '%s.mo',
-            ),
-        ),
-    ),
+    'service_manager' => array (
+				'abstract_factories' => array (
+						'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
+						'Zend\Log\LoggerAbstractServiceFactory' 
+				),
+				'aliases' => array (
+						'translator' => 'MvcTranslator' 
+				),
+				'invokables' => array () 
+	),
+		
+	'translator' => array (
+				'locale' => 'fr_FR',
+				'translation_file_patterns' => array (
+						array (
+								'type' => 'gettext',
+								'base_dir' => __DIR__ . '/../language',
+								'pattern' => '%s.mo' 
+						) 
+				) 
+	),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => Controller\IndexController::class
+            'Application\Controller\Index' => Controller\IndexController::class,
+        	'Application\Controller\Erreur' => 'Application\Controller\ErreurController',
+        	'Application\Controller\AclManager' => 'Application\Controller\AclManagerController',
+        	'Application\Controller\AjaxUsers' => 'Application\Controller\AjaxUsersController',
         ),
     ),
     'view_manager' => array(
@@ -94,6 +131,9 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
+	'module_layouts' => array (
+				'Application' => 'layout/accueil'
+	),
     // Placeholder for console routes
     'console' => array(
         'router' => array(
@@ -101,4 +141,15 @@ return array(
             ),
         ),
     ),
+	'controller_plugins' => array (
+				'invokables' => array (
+						'AclPlugin' => 'Application\Controller\Plugin\AclPlugin'
+				)
+	),
+	'view_helpers' => array (
+				'invokables' => array (
+						'numberStaticsHelper' => 'Application\ViewHelper\NumberStaticsHelper',
+						'adminPaginationHelper' => 'Application\ViewHelper\AdminPaginationHelper'
+				)
+	)
 );

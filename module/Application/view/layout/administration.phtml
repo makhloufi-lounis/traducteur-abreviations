@@ -1,0 +1,142 @@
+<?php
+/* @var $this \Zend\View\Renderer\PhpRenderer */
+Use Core\ViewHelper\ConfigHelper;
+$cdn_placedesfranchises = $this->configHelper(ConfigHelper::CDN_PLACEDESFRANCHISES);
+?>
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <?php if ($this->headTitle()->renderTitle() == ''): ?>
+        <title>Adm - Place des Franchises</title>
+    <?php else: ?>
+        <?php echo $this->headTitle()->setAutoEscape(false); ?>
+    <?php endif; ?>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <?php
+    echo $this->headLink(array(
+        'rel' => 'shortcut icon',
+        'type' => 'image/vnd.microsoft.icon',
+        'href' => $this->basePath() . '/img/favicon.ico'))->
+    prependStylesheet($cdn_placedesfranchises . '/css/sb-admin-2.css')->
+    prependStylesheet($cdn_placedesfranchises . '/plugins/fancybox/source/jquery.fancybox.css')->
+    prependStylesheet($cdn_placedesfranchises . '/plugins/bootstrap-tablecloth/assets/css/tablecloth.css')->
+    prependStylesheet($cdn_placedesfranchises . '/plugins/bootstrap-validator/bootstrapValidator.min.css')->
+    prependStylesheet($cdn_placedesfranchises . '/plugins/jquery-tokeninput/styles/token-input.css')->
+    prependStylesheet($cdn_placedesfranchises . '/plugins/jquery-tokeninput/styles/token-input-facebook.css')->
+    prependStylesheet($cdn_placedesfranchises . '/plugins/icheck/skins/square/grey.css')->
+    prependStylesheet($cdn_placedesfranchises . '/plugins/jquery-file-upload/css/jquery.fileupload.css');?>
+
+    <?php
+    echo $this->headScript()->
+    prependFile($cdn_placedesfranchises . '/js/respond.min.js', 'text/javascript', array(
+            'conditional' => 'lt IE 9'))->
+    prependFile($cdn_placedesfranchises . '/js/html5shiv.js', 'text/javascript', array(
+            'conditional' => 'lt IE 9'));?>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script>if (!window.jQuery) {var cdn= <?php echo '"'.$this->configHelper(ConfigHelper::CDN_PLACEDESFRANCHISES ).'"'?>; document.write('<script src="'+cdn+'/js/jquery.min.js"><\/script>');}</script>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href=<?php echo $this->url('admin'); ?>><img
+                        alt="logo" class=""
+                        src="<?php echo $cdn_placedesfranchises . '/img/logo_pyramide.png' ?>">&nbsp;<span class="hidden-xs hidden-md">Administration Place des Franchises</span></a>
+        </div>
+        <div class="navbar-default sidebar" role="navigation">
+        	<div class="sidebar-nav navbar-collapse collapse">
+	        	<div class="text-center" style="padding-top: 15px;padding-bottom: 15px;background-color: #DEDEDE">
+                        <?php if ($this->zfcUserIdentity()): ?>
+                    	<em><?php echo "Bonjour, " . ucfirst($this->zfcUserDisplayName()) ?></em>
+                		<a href="<?php echo $this->url("zfcuser/logout") ?>"><i class="fa fa-sign-out"></i></a>
+            			<?php endif; ?>
+	            </div>
+	        </div>
+            <div class="sidebar-nav navbar-collapse collapse">
+                <ul class="nav" id="side-menu">
+                    <li>
+                        <a href=<?php echo $this->url('admin'); ?>><i class="fa fa-delicious"></i>
+                            Dashboard</a>
+                    </li>
+                    <li>
+                        <a href=<?php echo $this->url('admin/fiches'); ?>><i class="fa fa-bar-chart"></i>
+                            Fiches du réseau</a>
+                    </li>
+                    <li>
+                        <a href=<?php echo $this->url('admin/utilisateur'); ?>><i class="fa fa-area-chart"></i>
+                            Utilisateurs</a>
+                    </li>
+                    <li>
+                        <a href=<?php echo $this->url('admin/contacts'); ?>><i class="fa fa-line-chart"></i>
+                            Demandes de contact</a>
+                    </li>
+                    <li>
+                        <a href=<?php echo $this->url('admin/actualites'); ?>><i class="fa fa-newspaper-o"></i>
+                            Actualités</a>
+                    </li>
+                    <li>
+                        <a href=<?php echo $this->url('admin/newsletters'); ?>><i class="fa fa-envelope-o"></i>
+                            Newsletters</a>
+                    </li>
+                    <li>
+                        <a href=<?php echo $this->url('admin/statistiques'); ?>><i class="fa fa-pie-chart"></i>
+                            Statistiques</a>
+                    </li>
+                    <li>
+                        <a href=<?php echo $this->url('admin/aclmanager'); ?>><i class="fa fa-users"></i>
+                            ACL Manager</a>
+                    </li>
+                </ul>
+            </div><br>
+            <div class="sidebar-nav navbar-collapse collapse">
+	            <div class="text-center" style="margin-top: 100px">
+	                <a target="_blank" href="<?php echo $this->url("accueil") ?>"><i class="fa fa-globe"></i>&nbsp;<small>Placedesfranchises.com</small></a>
+	            </div>
+            </div>
+            <!-- /.sidebar-collapse -->
+        </div>
+        <!-- /.navbar-static-side -->
+    </nav>
+
+    <div id="page-wrapper" style="padding-top: 50px">
+        <?php echo $this->content; ?>
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+
+<?php
+    echo $this->inlineScript()->
+    prependFile($cdn_placedesfranchises . '/plugins/bootstrap-validator/bootstrapValidator.min.js')->
+    prependFile($cdn_placedesfranchises . '/js/administration/sb-admin-2.js')->
+    prependFile($cdn_placedesfranchises . '/plugins/bootstrap-tablecloth/assets/js/jquery.tablesorter.js')->
+    prependFile($cdn_placedesfranchises . '/plugins/bootstrap-tablecloth/assets/js/jquery.tablecloth.js')->
+    prependFile($cdn_placedesfranchises . '/plugins/fancybox/source/jquery.fancybox.js')->
+    prependFile($cdn_placedesfranchises . '/plugins/icheck/icheck.min.js')->
+    prependFile($cdn_placedesfranchises . '/plugins/jquery-tokeninput/src/jquery.tokeninput.js')->
+    prependFile($cdn_placedesfranchises . '/plugins/bootbox/bootbox.min.js')->
+    prependFile($cdn_placedesfranchises . '/js/bootstrap.min.js');?>
+
+</body>
+
+</html>

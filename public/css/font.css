@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'heydings_iconsregular';
+    src: url('http://www.help-fusacq.com/fonts/heydings_icons-webfont.eot');
+    src: url('http://www.help-fusacq.com/fonts/heydings_icons-webfont.eot?#iefix') format('embedded-opentype'),
+         url('http://www.help-fusacq.com/fonts/heydings_icons-webfont.woff2') format('woff2'),
+         url('http://www.help-fusacq.com/fonts/heydings_icons-webfont.woff') format('woff'),
+         url('http://www.help-fusacq.com/fonts/heydings_icons-webfont.ttf') format('truetype'),
+         url('http://www.help-fusacq.com/fonts/heydings_icons-webfont.svg#heydings_iconsregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+} 
+  
+@font-face{font-family:'interstateregular';src:url('http://www.help-fusacq.com/fonts/interstate-font.eot');src:url('http://www.help-fusacq.com/fonts/interstate-font.eot?#iefix') format('embedded-opentype'),
+url('http://www.help-fusacq.com/fonts/interstate-font.woff') format('woff'),
+url('http://www.help-fusacq.com/fonts/interstate-font.ttf') format('truetype'),
+url('http://www.help-fusacq.com/fonts/interstate-font.svg#interstate') format('svg');font-weight:normal;font-style:normal;}

@@ -1,0 +1,45 @@
+<?php
+/* @var $this \Zend\View\Renderer\PhpRenderer */
+use Core\ViewHelper\ConfigHelper;
+$cdn_traducteur = $this->configHelper(ConfigHelper::CDN_TRADUCTEUR);
+echo $this->doctype();
+?>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<?php echo $this->headTitle(''. $this->translate('Traducteur Abréviations Françaises'))->setSeparator(' - ')->setAutoEscape(false)?>
+<?php echo $this->headMeta ()->appendName ( 'viewport', 'width=device-width, initial-scale=1.0' )->appendHttpEquiv ( 'X-UA-Compatible', 'IE=edge' )?>
+<!-- Le styles -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<?php
+	echo $this->headLink ( array (
+			'rel' => 'shortcut icon',
+			'type' => $cdn_traducteur.'/image/vnd.microsoft.icon',
+			'href' => $this->basePath () . '/img/logo-trdt.png' ) )->
+		prependStylesheet ( $cdn_traducteur . '/css/font.css' )->
+		prependStylesheet ( $cdn_traducteur . '/plugins/bootstrap-validator/bootstrapValidator.css' );?>
+
+<!-- Scripts -->
+<?php
+	echo $this->headScript ()->
+		prependFile ( $cdn_traducteur . '/plugins/bootstrap-validator/bootstrapValidator.js' )->
+		prependFile ( $cdn_traducteur . '/plugins/bootbox/bootbox.min.js' )->
+		prependFile ( $cdn_traducteur . '/js/respond.min.js', 'text/javascript', array (
+		'conditional' => 'lt IE 9' ) )->
+		prependFile ( $cdn_traducteur . '/js/html5shiv.js', 'text/javascript', array (
+		'conditional' => 'lt IE 9' ) )->
+		prependFile ( $cdn_traducteur . '/js/bootstrap.js' )->
+		prependFile ( $cdn_traducteur . '/js/jquery.js' );
+?>
+</head>
+<body>
+	<div class="container-fluid">
+		<div>
+			<?php echo $this->zfcUserLoginWidget(); ?>
+		</div>
+	</div>
+	
+</body>
+
+</html>

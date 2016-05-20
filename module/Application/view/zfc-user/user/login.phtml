@@ -1,0 +1,118 @@
+
+<style>
+
+body {
+    background: #252525;
+    font-family: 'Open Sans';
+    font-weight: 300;
+}
+.main {
+    background: white url(dico.jpeg) right top no-repeat;
+    background-size: contain;
+    padding: 80px 20px 20px;
+    margin-top: 120px;
+}
+@media only screen and (max-width : 992px) {
+    .main {
+        background: white;
+        margin-top: 30px;
+    }
+}
+
+h1 {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    color: #555;
+    margin-bottom: 0;
+}
+h2 {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    color: #999;
+    font-size: 18px;
+    margin-top: 5px;
+}
+
+.inter_orange {
+	color: #FF9900;
+	font-family: 'interstateregular';
+	font-size: 50px;
+	padding-bottom: 10px;
+}
+
+form {
+    margin-top: 60px;
+}
+
+input.form-control , input[type="submit"] , .btn {
+    border-radius: 0px;
+}
+
+.btn {
+    transition: all ease-in-out 0.2s;
+}
+
+.credits {
+    margin-top: 100px;
+    color: #999;
+    font-size: 12px;
+}
+</style>
+
+<?php
+$form = $this->loginForm;
+$form->prepare ();
+$form->setAttribute ( 'action', $this->url ( 'zfcuser/login' ) );
+$form->setAttribute ( 'method', 'post' );
+?>
+
+<?php echo $this->form()->openTag($form)?>
+<div class="container">
+<div class="row">
+<div class="col-xs-12">
+    
+    <div class="main">
+            
+        <div class="row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-1">
+        
+        		<h1>Dico Fusacq</h1>
+           		<h2>Tous vos mots en un seul endroit</h2>
+           		
+				<?php foreach ($form as $element) : ?>
+				    <div style="width: 250px" class="form-group <?php if ($this->formElementErrors($element)) echo "has-error" ?>">
+					<?php if ($element->getLabel() != null && !$element instanceof Zend\Form\Element\Button){ ?>
+				                   
+				    <?php
+				    	if($element->getLabel () == 'Email')
+							$element->setAttribute ( 'class', 'form-control' )->setAttribute ( 'placeholder', $element->getLabel () );
+				    	else
+				    		$element->setAttribute ( 'class', 'form-control' )->setAttribute ( 'placeholder', 'Mot de passe' );
+						echo $this->formInput($element);
+					} else if ($element instanceof Zend\Form\Element\Button){
+						$element->setAttribute ( 'class', 'btn btn-success' );
+						$element->setLabel ( 'Connexion' );
+						echo $this->formButton($form->get('submit'));
+					}
+						
+					
+					if ($this->formElementErrors ( $element )) :
+						?>
+				                <?php
+						echo $this->formElementErrors ()->setMessageOpenFormat ( '<p class="help-block">' )->setMessageSeparatorString ( '</p><p class="help-block">' )->setMessageCloseString ( '</p>' )->render ( $element );
+						?>
+					<?php endif; ?>
+				    </div>
+				 
+				<?php endforeach;?>
+				
+				<p class="credits">&copy; <?php echo date('Y') ?> Dictionnaire Fusacq Tous Droits réservés</p>
+		</div>
+        </div>
+        
+    </div>
+</div>
+</div>
+</div>
+<?php echo $this->form()->closeTag()?>
+

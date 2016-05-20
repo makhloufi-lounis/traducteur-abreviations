@@ -1,0 +1,65 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('Traducteur Abréviations Françaises')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/logo-trdt.png'))
+                        ->prependStylesheet($this->basePath('css/style.css'))
+                        ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
+                        ->prependStylesheet($this->basePath('css/bootstrap.min.css')) ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath('js/bootstrap.min.js'))
+            ->prependFile($this->basePath('js/jquery.min.js'))
+            ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath('js/html5shiv.min.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
+        ; ?>
+
+    </head>
+    <body>
+        <div class="container">
+            <nav class="navbar navbar-inverse">
+                <div class = "header" style="color: #ffffff; text-align: center">
+                   <h2> Dictionaire d'abreviation Fusacq <img src="<?php echo $this->basePath().'/img/logo-trdt.png'?>" </h2>
+                </div>
+            </nav>
+
+        </div>
+        <div class="container">
+            
+            <div style="width: 100%; height: 380px; margin: 0 auto; text-align: center" class="jumbotron vertical-center">
+				    <div style="margin-top: 50px; margin-bottom: 10px;">
+				        <h3>Ajouter une abréviation avec sa traduction</h3>
+				        <form class="form-inline">
+				            <div class="form-group">
+				                <label class="sr-only" for="abreviation">Abréviation</label>
+				                <input type="text" class="form-control" id="abreviation" placeholder="Abréviation">
+				            </div>
+				            <div class="form-group">
+				                <label class="sr-only" for="traduction">Traduction</label>
+				                <input type="text" class="form-control" id="traduction" placeholder="Traduction">
+				            </div>
+				            <button type="submit" class="btn btn-default">Ajouter</button>
+				        </form>
+				    </div>
+    				<a href="">Afficher le dictionaire</a>
+			</div>
+            
+            
+            <hr>
+            <footer style="text-align: center">
+                <p>&copy; 2005 - <?php echo date('Y') ?> by Zend Technologies Ltd. <?php echo $this->translate('All rights reserved.') ?></p>
+            </footer>
+        </div> <!-- /container -->
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>
