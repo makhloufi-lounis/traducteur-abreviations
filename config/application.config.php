@@ -9,14 +9,15 @@ $config = array (
 		'modules' => array (
 				'DoctrineModule',
 				'DoctrineORMModule',
-				'ModuleLayouts',
 				'ZfcBase',
 				'ZfcUser',
 				'ZfcUserDoctrineORM',
 				'Core',
-				'Application',
 				'RestClient',
-				'TwbBundle', 
+				'TwbBundle',
+                'ZfcTwig',
+                'ModuleLayouts',
+                'Application',
 		),
 		'module_listener_options' => array (
 				'module_paths' => array (

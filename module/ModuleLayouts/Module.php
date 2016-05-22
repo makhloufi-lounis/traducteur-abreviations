@@ -13,7 +13,7 @@ class Module {
 				case 'Application' :
 					if ($e->getApplication ()->getServiceManager ()->get ( 'zfcuser_auth_service' )->hasIdentity ()) {
 						$controller->layout ( $config ['module_layouts'] [$moduleNamespace] );
-					} else {
+                    } else {
 						$controller->layout ( 'layout/authentication.phtml' );
 					}
 					break;

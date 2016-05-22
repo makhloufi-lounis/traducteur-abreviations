@@ -7,10 +7,12 @@ body {
     font-weight: 300;
 }
 .main {
-    background: white url(dico.jpeg) right top no-repeat;
+    background: white url('/img/dico.jpeg') right top no-repeat;
+    background-position:90% 0%;
     background-size: contain;
-    padding: 80px 20px 20px;
-    margin-top: 120px;
+    padding: 60px 20px 20px 4px;
+    margin-top: 40px;
+    border-radius: 5px;
 }
 @media only screen and (max-width : 992px) {
     .main {
@@ -31,6 +33,7 @@ h2 {
     color: #999;
     font-size: 18px;
     margin-top: 5px;
+    margin-bottom: 50px;
 }
 
 .inter_orange {
@@ -46,8 +49,11 @@ form {
 
 input.form-control , input[type="submit"] , .btn {
     border-radius: 0px;
-}
 
+}
+.form-connexion{
+    margin-top: 10px;
+}
 .btn {
     transition: all ease-in-out 0.2s;
 }
@@ -74,37 +80,39 @@ $form->setAttribute ( 'method', 'post' );
     <div class="main">
             
         <div class="row">
-        <div class="col-xs-12 col-sm-6 col-sm-offset-1">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-1" >
         
         		<h1>Dico Fusacq</h1>
            		<h2>Tous vos mots en un seul endroit</h2>
-           		
-				<?php foreach ($form as $element) : ?>
-				    <div style="width: 250px" class="form-group <?php if ($this->formElementErrors($element)) echo "has-error" ?>">
-					<?php if ($element->getLabel() != null && !$element instanceof Zend\Form\Element\Button){ ?>
-				                   
-				    <?php
-				    	if($element->getLabel () == 'Email')
-							$element->setAttribute ( 'class', 'form-control' )->setAttribute ( 'placeholder', $element->getLabel () );
-				    	else
-				    		$element->setAttribute ( 'class', 'form-control' )->setAttribute ( 'placeholder', 'Mot de passe' );
-						echo $this->formInput($element);
-					} else if ($element instanceof Zend\Form\Element\Button){
-						$element->setAttribute ( 'class', 'btn btn-success' );
-						$element->setLabel ( 'Connexion' );
-						echo $this->formButton($form->get('submit'));
-					}
-						
-					
-					if ($this->formElementErrors ( $element )) :
-						?>
-				                <?php
-						echo $this->formElementErrors ()->setMessageOpenFormat ( '<p class="help-block">' )->setMessageSeparatorString ( '</p><p class="help-block">' )->setMessageCloseString ( '</p>' )->render ( $element );
-						?>
-					<?php endif; ?>
-				    </div>
-				 
-				<?php endforeach;?>
+
+                <div class="form-connexion">
+                    <?php foreach ($form as $element) : ?>
+                        <div style="width: 250px" class="form-group <?php if ($this->formElementErrors($element)) echo "has-error" ?>">
+                            <?php if ($element->getLabel() != null && !$element instanceof Zend\Form\Element\Button){ ?>
+
+                                <?php
+                                if($element->getLabel () == 'Email')
+                                    $element->setAttribute ( 'class', 'form-control' )->setAttribute ( 'placeholder', $element->getLabel () );
+                                else
+                                    $element->setAttribute ( 'class', 'form-control' )->setAttribute ( 'placeholder', 'Mot de passe' );
+                                echo $this->formInput($element);
+                            } else if ($element instanceof Zend\Form\Element\Button){
+                                $element->setAttribute ( 'class', 'btn btn-primary' );
+                                $element->setLabel ( 'Connexion' );
+                                echo $this->formButton($form->get('submit'));
+                            }
+
+
+                            if ($this->formElementErrors ( $element )) :
+                                ?>
+                                <?php
+                                echo $this->formElementErrors ()->setMessageOpenFormat ( '<p class="help-block">' )->setMessageSeparatorString ( '</p><p class="help-block">' )->setMessageCloseString ( '</p>' )->render ( $element );
+                                ?>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach;?>
+                </div>
+
 				
 				<p class="credits">&copy; <?php echo date('Y') ?> Dictionnaire Fusacq Tous Droits réservés</p>
 		</div>

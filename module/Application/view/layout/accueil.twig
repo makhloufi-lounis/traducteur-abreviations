@@ -54,15 +54,14 @@
 				    </div>
     				<a href="">Afficher le dictionaire</a>
 			</div>
-            
-            
+
+
             <hr>
             <footer style="text-align: center">
-                <p>&copy; 2005 - <?php echo date('Y') ?> by Zend Technologies Ltd. <?php echo $this->translate('All rights reserved.') ?></p>
+                <p class="credits">&copy; <?php echo date('Y'); ?> Dictionnaire Fusacq Tous Droits réservés</p>
             </footer>
         </div> <!-- /container -->
         {% block inline %}{% endblock inline %}
-
         <!-- Scripts -->
         <script type="text/javascript" src="{{ basePath() }}/js/jquery.min.js"></script>
         <script type="text/javascript" src="{{ basePath() }}/js/bootstrap.min.js"></script>
