@@ -72,6 +72,20 @@ return array(
                             ),
                         ),
                     ),
+                    'usermanagement' => array (
+                        'type' => 'segment',
+                        'options' => array (
+                            'route' => '/usermanagement[/:action][/:id]',
+                            'constraints' => array (
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id' => '[0-9]+'
+                            ),
+                            'defaults' => array (
+                                'controller' => 'Application\Controller\UserManagement',
+                                'action' => 'index'
+                            )
+                        )
+                    ),
                 ),
             ),
         	'login' => array(
@@ -84,6 +98,7 @@ return array(
         						),
         				),
         	),
+
         ),
     ),
     'service_manager' => array (
@@ -110,9 +125,9 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Application\Controller\Index' => Controller\IndexController::class,
+            'Application\Controller\UserManagement' => 'Application\Controller\UserManagementController',
         	'Application\Controller\Erreur' => 'Application\Controller\ErreurController',
-        	'Application\Controller\AclManager' => 'Application\Controller\AclManagerController',
-        	'Application\Controller\AjaxUsers' => 'Application\Controller\AjaxUsersController',
+            'Application\Controller\AjaxUsers' => 'Application\Controller\AjaxUsersController',
         ),
     ),
     'view_manager' => array(

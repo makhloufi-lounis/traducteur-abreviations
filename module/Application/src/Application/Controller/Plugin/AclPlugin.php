@@ -2,7 +2,7 @@
 
 namespace Application\Controller\Plugin;
 
-use Application\Entity\User;
+use Core\Entity\User;
 use Zend\Mvc\Controller\Plugin\AbstractPlugin;
 use Zend\Mvc\MvcEvent;
 use Zend\Permissions\Acl\Acl;
@@ -35,7 +35,8 @@ class AclPlugin extends AbstractPlugin {
 		if ($this->initialized === false) {
 			$this->initialize ( $e );
 		}
-		if ($this->moduleName == 'administration') {
+		if ($this->moduleName == 'application') {
+
 			$acl = new Acl ();
 			
 			$aclList = $this->config ['aclList'];
@@ -77,7 +78,6 @@ class AclPlugin extends AbstractPlugin {
 					}
 				}
 			}
-			
 			
 			$auth = $e->getApplication ()->getServiceManager ()->get ( 'zfcuser_auth_service' );
 			$roleCurrent = ($auth->getIdentity () == null) ? User::ROLE_GUEST : $auth->getIdentity ()->getRole ();
