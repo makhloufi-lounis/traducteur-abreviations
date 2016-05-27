@@ -41,10 +41,11 @@ class UserManagementController extends AbstractActionController
 		return $this->editAction ();
 	}
 	public function editAction() {
+		$em = $this->serviceLocator->get ( 'doctrine.entitymanager.orm_default' );
 		if ($this->params ( 'id' )) {
-			$user = $this->getEntityManager ()->getRepository ( 'Core\Entity\User' )->find ( ( int ) $this->params ( 'id' ) );
+			$user = $em->getRepository ( 'Core\Entity\User' )->find ( ( int ) $this->params ( 'id' ) );
 			if (is_null ( $user )) {
-				$this->redirect ()->toRoute ( 'admin/erreur', array (
+				$this->redirect ()->toRoute ( 'application/erreur', array (
 						'action' => 'notFound' 
 				) );
 				$this->getResponse ()->sendHeaders ();
@@ -54,7 +55,7 @@ class UserManagementController extends AbstractActionController
 			$user = new User ();
 		}
 		$form = new UserForm ();
-		$form->setHydrator ( new DoctrineEntity ( $this->getEntityManager (), 'Core\Entity\User' ) );
+		$form->setHydrator ( new DoctrineEntity ( $em , 'Core\Entity\User' ) );
 		$form->bind ( $user );
 		
 		$request = $this->getRequest ();
@@ -70,7 +71,7 @@ class UserManagementController extends AbstractActionController
 				$user->setPassword ( $password );
 				$em->persist ( $user );
 				$em->flush ( $user );
-				return $this->redirect ()->toRoute ( 'admin/aclmanager' );
+				return $this->redirect ()->toRoute ( 'application/aclmanager' );
 			}
 		}
 		

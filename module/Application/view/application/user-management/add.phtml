@@ -1,17 +1,17 @@
 <?php
 /* @var $this \Zend\View\Renderer\PhpRenderer */
 Use Core\ViewHelper\ConfigHelper;
-$title = 'Adm - ACL Manager';
+$title = 'Gestion Des Utilisateurs';
 $this->headTitle($title);
 ?>
 <?php
-$this->inlineScript ()->prependFile ( $this->configHelper(ConfigHelper::CDN_PLACEDESFRANCHISES) . '/js/administration/admin-user.js' );
+$this->inlineScript ()->prependFile ( $this->configHelper(ConfigHelper::CDN_TRADUCTEUR) . '/js/administration/admin-user.js' );
 ?>
 
 <h2 class="page-header"><?php echo $this->escapeHtml($title); ?></h2>
 <?php
 $form->setAttribute ( 'class', 'form-horizontal' );
-$form->setAttribute ( 'action', $this->url ( 'admin/aclmanager', array (
+$form->setAttribute ( 'action', $this->url ( 'application/usermanagement', array (
 		'action' => 'add' 
 ) ) )->prepare ();?>
 <?php $this->form($form, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL);?>

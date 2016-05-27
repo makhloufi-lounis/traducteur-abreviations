@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    $("table").tablecloth();
+	$('.btn-group').hide("slow");
+   /* $("table").tablecloth();
 
     // With customizations
     $("table").tablecloth({
@@ -61,7 +62,7 @@ $(document).ready(function() {
                 }
             }
         });
-    });
+    });*/
 });
 
 function deleteUser($button) {

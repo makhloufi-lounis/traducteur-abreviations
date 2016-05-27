@@ -11,6 +11,11 @@ namespace Core;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Core\Model\Abreviation;
+use Core\Model\AbreviationTable;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\TableGateway\TableGateway;
+
 
 class Module {
 	public function onBootstrap(MvcEvent $e) {
@@ -36,5 +41,23 @@ class Module {
 						) 
 				) 
 		);
+	}
+	
+	public function getServiceConfig() {
+		return array (
+				'factories' => array (
+						'Core\Model\AbreviationTable' => function ($sm) {
+						$tableGateway = $sm->get ( 'AbreviationTableGateway' );
+						$table = new AbreviationTable ( $tableGateway );
+						return $table;
+						},
+						'AbreviationTableGateway' => function ($sm) {
+						$dbAdapter = $sm->get ( 'dbDictionnaire' );
+						$resultSetPrototype = new ResultSet ();
+						$resultSetPrototype->setArrayObjectPrototype ( new Abreviation () );
+						return new TableGateway ( 'abreviations', $dbAdapter, null, $resultSetPrototype );
+						}
+						)
+				);
 	}
 }

@@ -41,11 +41,11 @@ $cdn_placedesfranchises = $this->configHelper(ConfigHelper::CDN_TRADUCTEUR);
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">DCO FUSACQ</a>
+                <a class="navbar-brand" href=<?php echo $this->url('home'); ?>>DCO FUSACQ</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">ACCUEL</a></li>
-                <li><a href="#">AJOUTER</a></li>
+                <li class="active"><a href=<?php echo $this->url('home'); ?>>ACCUEL</a></li>
+                <li><a href=<?php echo $this->url('addabreviation'); ?>>AJOUTER</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-center" style="margin-left: 20px;">
                 <li ><a style="color: #999;">RECHERCHER :</a></li>
@@ -62,7 +62,7 @@ $cdn_placedesfranchises = $this->configHelper(ConfigHelper::CDN_TRADUCTEUR);
                     </form>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right" style="margin-right: 10px;">
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 5px;">
                 <li><a href=<?php echo $this->url('application/usermanagement'); ?>><span class="glyphicon glyphicon-user"></span> UTILISATEURS</a></li>
                 <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> DECONNEXION</a></li>
             </ul>
@@ -72,7 +72,7 @@ $cdn_placedesfranchises = $this->configHelper(ConfigHelper::CDN_TRADUCTEUR);
 <div class="container">
 
     <div class="content" style="width: 100%; height: 600px; margin: 0 auto; background-color: #EEEEF4;">
-        <div style="text-align: center; padding-top: 20px;" class="nav">
+        <div style="text-align: center; padding-top: 20px;" class="navalphabet">
             <div class="btn-group" role="group">
                 <button class="btn btn-default">
                     <a href="#">A</a>

@@ -10,7 +10,16 @@
  * control, so do not include passwords or other sensitive information in this
  * file.
  */
-
-return array(
-    // ...
+return array (
+		'service_manager' => array (
+				'factories' => array (
+						'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory' 
+				),
+				'abstract_factories' => array (
+						'Zend\Db\Adapter\AdapterAbstractServiceFactory' 
+				) 
+		),
+		'generated_txt_dir' => "data/txt" 
 );
+		
+

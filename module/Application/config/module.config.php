@@ -72,29 +72,40 @@ return array(
                             ),
                         ),
                     ),
-                    'usermanagement' => array (
-                        'type' => 'segment',
-                        'options' => array (
-                            'route' => '/usermanagement[/:action][/:id]',
-                            'constraints' => array (
-                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'id' => '[0-9]+'
-                            ),
-                            'defaults' => array (
-                                'controller' => 'Application\Controller\UserManagement',
-                                'action' => 'index'
-                            )
-                        )
-                    ),
+                	'usermanagement' => array (
+                		'type' => 'segment',
+                		'options' => array (
+                			'route' => '/usermanagement[/:action][/:id]',
+                			'constraints' => array (
+                					'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                					'id' => '[0-9]+'
+                			),
+                			'defaults' => array (
+                					'controller' => 'Application\Controller\UserManagement',
+                					'action' => 'index'
+                			)
+                		)
+                	),
+                    
                 ),
             ),
-        	'login' => array(
+        	'addabreviation' => array(
+        			'type'    => 'Zend\Mvc\Router\Http\Literal',
+        			'options' => array(
+        					'route'    => '/addabreviation.html',
+        					'defaults' => array(
+        							'controller'    => 'Application\Controller\Abreviation',
+        							'action'        => 'add',
+        					),
+        				),
+        	),
+        	'register' => array(
         				'type'    => 'Zend\Mvc\Router\Http\Literal',
         				'options' => array(
-        						'route'    => '/user/login',
+        						'route'    => '/user/register',
         						'defaults' => array(
         								'controller' => 'zfc-user\Controller\User',
-        								'action'     => 'login',
+        								'action'     => '/register',
         						),
         				),
         	),
@@ -110,8 +121,7 @@ return array(
 						'translator' => 'MvcTranslator' 
 				),
 				'invokables' => array () 
-	),
-		
+	),		
 	'translator' => array (
 				'locale' => 'fr_FR',
 				'translation_file_patterns' => array (
@@ -126,6 +136,7 @@ return array(
         'invokables' => array(
             'Application\Controller\Index' => Controller\IndexController::class,
             'Application\Controller\UserManagement' => 'Application\Controller\UserManagementController',
+        	'Application\Controller\Abreviation' => 'Application\Controller\AbreviationController',
         	'Application\Controller\Erreur' => 'Application\Controller\ErreurController',
             'Application\Controller\AjaxUsers' => 'Application\Controller\AjaxUsersController',
         ),

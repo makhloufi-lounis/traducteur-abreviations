@@ -87,11 +87,11 @@ class AclPlugin extends AbstractPlugin {
 			if (! $acl->isAllowed ( $roleCurrent, $this->controllerName, $this->actionName )) {
 				$router = $e->getRouter ();
 				$url = $router->assemble ( array (), array (
-						'name' => 'admin' 
+						'name' => '/' 
 				) );
 				$response = $e->getResponse ();
 				$response->setStatusCode ( 302 );
-				$response->getHeaders ()->addHeaderLine ( 'Location', $url . '?from=2' );
+				$response->getHeaders ()->addHeaderLine ( 'Location', $url  );
 				$response->sendHeaders ();
 				$stopCallBack = function ($event) use($response) {
 					$event->stopPropagation ();
