@@ -24,10 +24,12 @@ class IndexController extends AbstractActionController
 
     public function indexAction()
     {
-        $abreviations = $this->getAbreviationTable()->fetchAll();
-        return new ViewModel(
-                array('abreviations' => $abreviations)
-        );
+        $paginator = $this->getAbreviationTable()->fetchAll(true);
+        $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
+        $paginator->setItemCountPerPage(10);
+        return new ViewModel(array(
+            'paginator' => $paginator
+        ));
     }
 
     public function getAbreviationTable()

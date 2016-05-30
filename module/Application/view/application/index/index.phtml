@@ -1,4 +1,9 @@
-
+<style>
+    .btn-default{
+        color: #009cd7;
+        font-weight: bold;
+    }
+</style>
 
 <?php
 /* @var $this \Zend\View\Renderer\PhpRenderer */
@@ -8,7 +13,7 @@ $this->inlineScript ()->prependFile ( $this->configHelper(ConfigHelper::CDN_TRAD
 ?>
 <div style="text-align: center; padding-top: 10px;" id="idMenuAlphabet">
     <div class="btn-group" role="group">
-        <a href="<?php echo $this->url('searchabreviation'); ?>?letter=a" class="btn btn-default">
+        <a href="<?php echo $this->url('searchabreviation'); ?>?letter=a" class="btn btn-default" style="color: #009cd7">
             A
         </a>
         <a href="<?php echo $this->url('searchabreviation'); ?>?letter=b" class="btn btn-default">
@@ -89,27 +94,30 @@ $this->inlineScript ()->prependFile ( $this->configHelper(ConfigHelper::CDN_TRAD
     </div>
 </div>
 <div class="row" style="width: 70%; margin: 0 auto; margin-top: 50px;">
- 	<?php if(count($this->abreviations) > 0) :?>
-	    <table class="table table-striped">
+ 	<?php if(count($this->paginator) > 0) :?>
+    <div class="panel panel-default">
+	    <table class="table table-bordered">
 	        <thead>
 	        <tr >
-	            <th class="text-center"> Iteme </span></th>
-	            <th class="text-center">Traduction</th>
+	            <th class="text-center" style="background-color: #2e2e2e; color:#ffffff"> Iteme</th>
+	            <th class="text-center" style="background-color: #2e2e2e; color:#ffffff">Traduction</th>
+                <th class="text-center" style="background-color: #2e2e2e; color:#ffffff">Modifier</th>
+                <th class="text-center" style="background-color: #2e2e2e; color:#ffffff">Supprimer</th>
 	        </tr>
 	        </thead>
 	        <tbody>
 	       
-		        <?php foreach ($this->abreviations as $abreviation) : ?>
+		        <?php foreach ($this->paginator as $abreviation) : ?>
 		            <tr class="text-center" style="width: 60%">
-		                <td style="width: 100px; font-size: 14px; font-family: 'interstateregular'; "><?php echo $this->escapeHtml($abreviation->iteme);?></a></td>
-		                <td style=" width: 100px; font-size: 14px; font-family: 'interstateregular'; "><?php echo $this->escapeHtml($abreviation->traduction);?></a></td>
+		                <td style="width: 100px; font-size: 15px; font-family: 'interstateregular'; "><?php echo $this->escapeHtml($abreviation->iteme);?></td>
+		                <td style=" width: 100px; font-size: 15px; font-family: 'interstateregular'; "><?php echo $this->escapeHtml($abreviation->traduction);?></td>
 		                <td style="width: 100px">
-		                    <a href="<?php echo $this->url('editabreviation'); ?>?id=<?php echo $abreviation->id;?>" class="btn btn-warning" aria-label="Left Align">
+		                    <a href="<?php echo $this->url('editabreviation'); ?>?id=<?php echo $abreviation->id;?>" class="btn btn-warning btn-xs" aria-label="Left Align">
 		                        <span class="glyphicon glyphicon-edit" aria-hidden="true" style="color: #ffffff"></span>
 		                    </a>
 		                </td>
 		                <td style="width: 100px;">
-		                    <a href="<?php echo $this->url('deleteabreviation'); ?>" class="btn btn-danger js-btn-danger" aria-label="Left Align" id-iteme = "<?php echo $abreviation->id ?>">
+		                    <a href="<?php echo $this->url('deleteabreviation'); ?>" class="btn btn-danger js-btn-danger btn-xs" aria-label="Left Align" id-iteme = "<?php echo $abreviation->id ?>">
 		                            <span class="glyphicon glyphicon-trash" aria-hidden="true" style="color: #ffffff"></span>
 		                    </a>
 		                </td>
@@ -119,6 +127,7 @@ $this->inlineScript ()->prependFile ( $this->configHelper(ConfigHelper::CDN_TRAD
 		   
 	        </tbody>
 	    </table>
+    </div>
    <?php elseif(count($this->flashMessages) > 0):
    			foreach ($this->flashMessages as $msg):
    	?>
@@ -130,4 +139,23 @@ $this->inlineScript ()->prependFile ( $this->configHelper(ConfigHelper::CDN_TRAD
             <p > <span class='erreur'>  Le dictionaire est vide  </span > </p>                                   
 	    	
    <?php endif;?>
+
+    <div style="margin-top: 50px; text-align: center">
+        <?php
+        // add at the end of the file after the table
+        echo $this->paginationControl(
+// the paginator object
+            $this->paginator,
+            // the scrolling style
+            'sliding',
+            // the partial to use to render the control
+            'paginator.phtml',
+            // the route to link to when a user clicks a control link
+            array(
+                'route' => 'lead',
+            )
+        );
+        ?>
+    </div>
 </div>
+

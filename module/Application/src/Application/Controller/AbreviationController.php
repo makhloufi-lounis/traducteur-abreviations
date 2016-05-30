@@ -13,7 +13,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Model\Abreviation;          
-use Core\Form\AbreviationForm;       
+use Core\Form\AbreviationForm;
 
 
 class AbreviationController extends AbstractActionController
@@ -126,33 +126,37 @@ class AbreviationController extends AbstractActionController
 	
 	public function searchAction()
 	{
-    	$abreviations = array();
+        $paginator = array();
     	$request = $this->getRequest();
     	if($request->isGet()){
 	    	$letter = $this->params()->fromQuery('letter');
 	    	if(!empty($letter)){
 	    		try{
-		    		$abreviations = $this->getAbreviationTable()->searchAbreviationsFromLetter($letter);
-		    		$model = new ViewModel(array('abreviations' => $abreviations));		    		
+                    $paginator = $this->getAbreviationTable()->searchAbreviationsFromLetter($letter, true);
+                    $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
+                    $paginator->setItemCountPerPage(10);
+		    		$model = new ViewModel(array('paginator' => $paginator));
 	    		}catch (\Exception $e){
 	    			$flashMessages = $this->flashMessenger()->addMessage($e->getMessage());
-	    			$model = new ViewModel(array('abreviations' => $abreviations, 'flashMessages' => $flashMessages)); 	    			
+	    			$model = new ViewModel(array('paginator' => $paginator, 'flashMessages' => $flashMessages));
 	    		}
 	    		
 	    	}else{
 	    		$flashMessages = $this->flashMessenger()->addMessage('La requete ne fonctionne pas veuillez réessayer plutard');
-	    		$model = new ViewModel(array('abreviations' => $abreviations, 'flashMessages' => $flashMessages));
+	    		$model = new ViewModel(array('paginator' => $paginator, 'flashMessages' => $flashMessages));
 	    	}
 	    	
     	}elseif($request->isPost()){
     		$critere_recherche =  $request->getPost('critere_recherche');
     		$mot_cle = $request->getPost('mot_cle');      		
     		try{
-    			$abreviations = $this->getAbreviationTable()->searchAbreviationsFromCritereDeRecherche($critere_recherche, $mot_cle);
-    			$model = new ViewModel(array('abreviations' => $abreviations));
+                $paginator = $this->getAbreviationTable()->searchAbreviationsFromCritereDeRecherche($critere_recherche, $mot_cle);
+                $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
+                $paginator->setItemCountPerPage(10);
+    			$model = new ViewModel(array('paginator' => $paginator));
     		}catch (\Exception $e){
     			$flashMessages = $this->flashMessenger()->addMessage($e->getMessage());
-    			$model = new ViewModel(array('abreviations' => $abreviations, 'flashMessages' => $flashMessages));
+    			$model = new ViewModel(array('paginator' => $paginator, 'flashMessages' => $flashMessages));
     		}
     	}
     	
