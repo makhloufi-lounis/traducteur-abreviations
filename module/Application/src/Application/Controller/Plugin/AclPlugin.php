@@ -81,25 +81,28 @@ class AclPlugin extends AbstractPlugin {
 			
 			$auth = $e->getApplication ()->getServiceManager ()->get ( 'zfcuser_auth_service' );
 			$roleCurrent = ($auth->getIdentity () == null) ? User::ROLE_GUEST : $auth->getIdentity ()->getRole ();
+			if($roleCurrent == 'admin' || $roleCurrent == 'soustraitant'){
+				$roleCurrent = 'admin';
+			}
 			if (! $acl->hasResource ( $this->controllerName )) {
 				$acl->addResource ( $this->controllerName );
 			}
 			if (! $acl->isAllowed ( $roleCurrent, $this->controllerName, $this->actionName )) {
-				$router = $e->getRouter ();
-				$url = $router->assemble ( array (), array (
-						'name' => '/' 
-				) );
-				$response = $e->getResponse ();
-				$response->setStatusCode ( 302 );
-				$response->getHeaders ()->addHeaderLine ( 'Location', $url  );
-				$response->sendHeaders ();
-				$stopCallBack = function ($event) use($response) {
-					$event->stopPropagation ();
+					$router = $e->getRouter ();
+					$url = $router->assemble ( array (), array (
+							'name' => '/' 
+					) );
+					$response = $e->getResponse ();
+					$response->setStatusCode ( 302 );
+					$response->getHeaders ()->addHeaderLine ( 'Location', $url . '?from=2' );
+					$response->sendHeaders ();
+					$stopCallBack = function ($event) use($response) {
+						$event->stopPropagation ();
+						return $response;
+					};
+					$e->getApplication ()->getEventManager ()->attach ( MvcEvent::EVENT_ROUTE, $stopCallBack, - 10000 );
 					return $response;
-				};
-				$e->getApplication ()->getEventManager ()->attach ( MvcEvent::EVENT_ROUTE, $stopCallBack, - 10000 );
-				return $response;
-			}
+				}
 		}
 	}
 }

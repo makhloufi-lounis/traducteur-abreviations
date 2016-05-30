@@ -11,11 +11,31 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\ServiceManager\ServiceLocatorInterface;
 
 class IndexController extends AbstractActionController
 {
+    /**
+     * @var ServiceLocatorInterface
+     */
+    protected $serviceLocator;
+
+    protected $abreviationTable;
+
     public function indexAction()
     {
-        return new ViewModel();
+        $abreviations = $this->getAbreviationTable()->fetchAll();
+        return new ViewModel(
+                array('abreviations' => $abreviations)
+        );
+    }
+
+    public function getAbreviationTable()
+    {
+        if (!$this->abreviationTable) {
+            $sm = $this->serviceLocator;
+            $this->abreviationTable = $sm->get('Core\Model\AbreviationTable');
+        }
+        return $this->abreviationTable;
     }
 }

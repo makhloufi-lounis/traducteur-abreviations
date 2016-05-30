@@ -92,11 +92,41 @@ return array(
         	'addabreviation' => array(
         			'type'    => 'Zend\Mvc\Router\Http\Literal',
         			'options' => array(
-        					'route'    => '/addabreviation.html',
+        					'route'    => '/gestion-dictionaire/ajouter-iteme.html',
         					'defaults' => array(
         							'controller'    => 'Application\Controller\Abreviation',
         							'action'        => 'add',
         					),
+        				),
+        	),
+            'editabreviation' => array(
+                'type'    => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/gestion-dictionaire/modifier-iteme.html',
+                    'defaults' => array(
+                        'controller'    => 'Application\Controller\Abreviation',
+                        'action'        => 'edit',
+                    ),
+                ),
+            ),
+            'deleteabreviation' => array(
+                'type'    => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/gestion-dictionaire/supprimer-iteme.html',
+                    'defaults' => array(
+                        'controller'    => 'Application\Controller\Abreviation',
+                        'action'        => 'delete',
+                    ),
+                ),
+            ),
+        	'searchabreviation' => array(
+        				'type'    => 'Zend\Mvc\Router\Http\Literal',
+        				'options' => array(
+        						'route'    => '/gestion-dictionaire/rechercher-iteme.html',
+        						'defaults' => array(
+        								'controller'    => 'Application\Controller\Abreviation',
+        								'action'        => 'search',
+        						),
         				),
         	),
         	'register' => array(

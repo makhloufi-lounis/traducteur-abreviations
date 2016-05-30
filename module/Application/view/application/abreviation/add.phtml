@@ -1,0 +1,80 @@
+<style>
+    form{
+        width: 50%;
+        margin: 0 auto;
+    }
+    #idAdminDico{
+        width: 50%;
+        margin: 0 auto;
+    }
+    #addbutton{
+        width: 100%;
+        font-family: 'interstateregular';
+    }
+
+    .erreur{
+        color: #d9534f;
+    }
+
+
+</style>
+
+<?php
+/* @var $this \Zend\View\Renderer\PhpRenderer */
+Use Core\ViewHelper\ConfigHelper;
+$title = 'Gestion Du Dictionaire';
+$this->headTitle($title);
+$this->inlineScript ()->prependFile ( $this->configHelper(ConfigHelper::CDN_TRADUCTEUR) . 'js/application/admin-dico.js' );
+$form = $this->abreviationForm;
+$form->prepare ();
+$form->setAttribute ( 'action', $this->url('addabreviation', array('action' => 'add')) );
+$form->setAttribute ( 'method', 'post' );
+?>
+<div class="row" class="admin-user" class="hidden" style="text-align: center; margin-top: 60px;">
+    <h3 class="page-header" style="margin-left: 40px;"><a href="<?php echo $this->url('application'); ?>"><i
+                class="fa fa-arrow-circle-o-left"></i></a>&nbsp;<?php echo sprintf($this->translate('Gestion du dictionaire')) ?></h3>
+</div>
+<?php echo $this->form()->openTag($form)?>
+<div class="row" class="hidden" id="idAdminDico">
+        <div class="col-xs-12">
+
+            <div class="main">
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-1" >
+
+                        <?php foreach ($form as $element) : ?>
+                            <div style="width: 250px" class="form-group <?php if ($this->formElementErrors($element)) echo "has-error" ?>">
+                                <?php
+                                    if ($element->getLabel() == null && !($element instanceof Zend\Form\Element\Submit)) {
+                                        echo $this->formInput($element);
+                                    }else if ($element->getLabel() != null){
+                                        $element->setAttribute ( 'class', 'form-control' )->setAttribute ( 'placeholder', $element->getLabel () );
+                                        echo $this->formInput($element);
+                                        if($element->getLabel() == 'Iteme'){
+                                            if(count($this->flashMessages)){
+                                                foreach ($this->flashMessages as $msg){
+                                                    echo "<span id='msg_flash'> <p class='erreur'>". $msg . "</p> </span >";
+                                                }
+                                            }
+                                        }
+                                    } else if ($element instanceof Zend\Form\Element\Submit){
+                                        $element->setAttribute ( 'class', 'btn btn-primary' );
+                                        $element->setLabel ( 'AJOUTER AU DICTIONAIRE' );
+                                        echo $this->formButton($form->get('submit'));
+                                    }
+                                    if ($this->formElementErrors ( $element )) {
+
+                                        echo $this->formElementErrors ()->setMessageOpenFormat ( '<p class="help-block">' )->setMessageSeparatorString ( '</p><p class="help-block">' )->setMessageCloseString ( '</p>' )->render ( $element );
+                                    }
+                                ?>
+                            </div>
+                        <?php endforeach;?>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+</div>
+<?php echo $this->form()->closeTag()?>
+
