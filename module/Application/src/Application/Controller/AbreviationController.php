@@ -126,45 +126,40 @@ class AbreviationController extends AbstractActionController
 	
 	public function searchAction()
 	{
-        $paginator = array();
+        $flashMessages = array();
     	$request = $this->getRequest();
     	if($request->isGet()){
 	    	$letter = $this->params()->fromQuery('letter');
+	    	$critere_recherche =  $this->params()->fromQuery('critere');
+	    	$mot_cle = $this->params()->fromQuery('mot_cle');
+	    		
 	    	if(!empty($letter)){
-	    		try{
-                    $paginator = $this->getAbreviationTable()->searchAbreviationsFromLetter($letter, true);
-                    $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
-                    $paginator->setItemCountPerPage(10);
-		    		$model = new ViewModel(array('paginator' => $paginator));
-	    		}catch (\Exception $e){
-	    			$flashMessages = $this->flashMessenger()->addMessage($e->getMessage());
-	    			$model = new ViewModel(array('paginator' => $paginator, 'flashMessages' => $flashMessages));
+	    		$paginator = $this->getAbreviationTable()->searchAbreviationsFromLetter($letter, true);
+	    		if(count($paginator) > 0){
+	    			$paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
+	    			$paginator->setItemCountPerPage(10);
+	    		}else {
+	    			$this->flashMessenger()->addMessage("Il ya aucun iteme qui commance par cette lettre");
 	    		}
 	    		
-	    	}else{
-	    		$flashMessages = $this->flashMessenger()->addMessage('La requete ne fonctionne pas veuillez réessayer plutard');
-	    		$model = new ViewModel(array('paginator' => $paginator, 'flashMessages' => $flashMessages));
+	    		$model = new ViewModel(array('paginator' => $paginator, 'route'	=> 'searchabreviation', 'lettre' => $letter));
+	    	}elseif (!empty($critere_recherche) && !empty($mot_cle)) {
+	    		$model = $this->getAbreviation($critere_recherche, $mot_cle);
 	    	}
 	    	
     	}elseif($request->isPost()){
+    		
     		$critere_recherche =  $request->getPost('critere_recherche');
-    		$mot_cle = $request->getPost('mot_cle');      		
-    		try{
-                $paginator = $this->getAbreviationTable()->searchAbreviationsFromCritereDeRecherche($critere_recherche, $mot_cle);
-                $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
-                $paginator->setItemCountPerPage(10);
-    			$model = new ViewModel(array('paginator' => $paginator));
-    		}catch (\Exception $e){
-    			$flashMessages = $this->flashMessenger()->addMessage($e->getMessage());
-    			$model = new ViewModel(array('paginator' => $paginator, 'flashMessages' => $flashMessages));
-    		}
+    		$mot_cle = $request->getPost('mot_cle'); 
+    		
+    		$model = $this->getAbreviation($critere_recherche, $mot_cle);
     	}
     	
-    	$model->setTemplate('application/index/index');
+       	$model->setTemplate('application/index/index');
     	return $model;
     	
     }
-    
+        
     public function getAbreviationTable()
     {
     	if (!$this->abreviationTable) {
@@ -172,6 +167,25 @@ class AbreviationController extends AbstractActionController
     		$this->abreviationTable = $sm->get('Core\Model\AbreviationTable');
     	}
     	return $this->abreviationTable;
+    }
+    
+    private function getAbreviation($critere_recherche, $mot_cle)
+    {
+    	$paginator = $this->getAbreviationTable()->searchAbreviationsFromCritereDeRecherche($critere_recherche, $mot_cle, true);
+    	if(count($paginator) > 0){
+    		$paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', 1));
+    		$paginator->setItemCountPerPage(10);
+    	}else {
+    		if($critere_recherche == 'iteme')
+    			$this->flashMessenger()->addMessage("Il ya aucun iteme qui correspond a vos critére de recherche dans le dictionaire");
+    			else
+    				$flashMessages = $this->flashMessenger()->addMessage("Il ya aucun traduction qui correspond a vos critére de recherche dans le dictionaire");
+    					
+    	}
+    	$model = new ViewModel(array('paginator' => $paginator,
+    			'critere' => $critere_recherche,
+    			'mot_cle' => $mot_cle));
+    	return $model;
     }
     
     

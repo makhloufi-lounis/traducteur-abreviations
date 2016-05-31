@@ -1,6 +1,6 @@
 <style>
     .btn-default{
-        color: #009cd7;
+        color: #428BCA;
         font-weight: bold;
     }
 </style>
@@ -13,7 +13,7 @@ $this->inlineScript ()->prependFile ( $this->configHelper(ConfigHelper::CDN_TRAD
 ?>
 <div style="text-align: center; padding-top: 10px;" id="idMenuAlphabet">
     <div class="btn-group" role="group">
-        <a href="<?php echo $this->url('searchabreviation'); ?>?letter=a" class="btn btn-default" style="color: #009cd7">
+        <a href="<?php echo $this->url('searchabreviation'); ?>?letter=a" class="btn btn-default" style="color: #428BCA">
             A
         </a>
         <a href="<?php echo $this->url('searchabreviation'); ?>?letter=b" class="btn btn-default">
@@ -128,38 +128,38 @@ $this->inlineScript ()->prependFile ( $this->configHelper(ConfigHelper::CDN_TRAD
 	        </tbody>
 	    </table>
     </div>
-   <?php elseif(count($this->flashMessages) > 0):
-   			foreach ($this->flashMessages as $msg):
+   <?php elseif($this->flashMessenger()->hasMessages()):
+   			$messages = $this->flashMessenger()->getMessages();
+   			foreach ($messages as $msg):
    	?>
-            <p> <span class='erreur'>  <?php echo $msg; ?>  </span > </p>
+   			<ul class="alert alert-danger">
+            	<li style="list-style:none;"> <?php echo $msg; ?> </li>
+            </ul>
     <?php 
     		endforeach;
     	else :
     ?>
-            <p > <span class='erreur'>  Le dictionaire est vide  </span > </p>                                   
+            <ul class="alert alert-danger">
+            	<li style="list-style:none;"> Le dictionaire est vide </li>
+            </ul>                                  
 	    	
    <?php endif;?>
-
-    <div style="width:60%; position: absolute; bottom: 10px; text-align: center;">
-        <div class="">
-            <?php
-            // add at the end of the file after the table
-            echo $this->paginationControl(
-// the paginator object
-                $this->paginator,
-                // the scrolling style
-                'sliding',
-                // the partial to use to render the control
-                'paginator.phtml',
-                // the route to link to when a user clicks a control link
-                array(
-                    'route' => 'lead',
-                )
-            );
-            ?>
-
-        </div>
-
     </div>
+	<div style="width:100%; position: relative; right: 0; text-align: center;">
+	            <?php
+	            echo $this->paginationControl(
+	                $this->paginator,
+	                'sliding',
+	                'paginator.phtml',
+	                array(
+	                    'route' => $this->route,
+	                	'lettre' => isset($this->lettre) ? $this->lettre : '',
+	                	'critere' => isset($this->critere) ? $this->critere : '',
+	                	'mot_cle' => isset($this->mot_cle) ? $this->mot_cle : '',
+	                )
+	            );
+	            ?>
+	
+	</div>
 </div>
 

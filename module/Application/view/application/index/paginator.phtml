@@ -1,11 +1,20 @@
 <?php if ($this->pageCount):  ?>
-
+		<?php 
+						
+			if(!empty($this->lettre)){
+				$url = $this->url($this->route).'?letter='.$this->lettre.'&';
+			}elseif (!empty($this->critere) && !empty($this->mot_cle)){
+				$url = $this->url($this->route).'?critere='.$this->critere.'&mot_cle='.$this->mot_cle.'&';
+			}else{
+				$url = $this->url($this->route).'?';
+			}
+		?>
         <div>
             <ul class="pagination">
                 <!-- first page link -->
                 <?php if (isset($this->previous)): ?>
                     <li>
-                        <a href="<?php echo $this->url($this->route); ?>/show?page=1">
+                        <a href="<?php echo $url; ?>page=1">
                             <<
                         </a>
                     </li>
@@ -19,7 +28,7 @@
                 <!-- Previous page link -->
                 <?php if (isset($this->previous)): ?>
                     <li>
-                        <a href="<?php echo $this->url($this->route); ?>/show?page=<?php echo $this->previous; ?>">
+                        <a href="<?php echo $url;?>page=<?php echo $this->previous; ?>">
                             <
                         </a>
                     </li>
@@ -34,7 +43,7 @@
                 <?php foreach ($this->pagesInRange as $page): ?>
                     <?php if ($page != $this->current): ?>
                         <li>
-                            <a href="<?php echo $this->url($this->route);?>/show?page=<?php echo $page; ?>">
+                            <a href="<?php echo $url;?>page=<?php echo $page; ?>">
                                 <?php echo $page; ?>
                             </a>
                         </li>
@@ -48,7 +57,7 @@
                 <!-- Next page link -->
                 <?php if (isset($this->next)): ?>
                     <li>
-                        <a href="<?php echo $this->url($this->route);?>/show?page=<?php echo $this->next; ?>">
+                        <a href="<?php echo $url;?>page=<?php echo $this->next; ?>">
                             >
                         </a>
                     </li>
@@ -62,7 +71,7 @@
                 <!-- last page link -->
                 <?php if (isset($this->next)): ?>
                     <li>
-                        <a href="<?php echo $this->url($this->route);?>/show?page=<?php echo $this->pageCount; ?>">
+                        <a href="<?php echo $url;?>page=<?php echo $this->pageCount; ?>">
                             >>
                         </a>
                     </li>

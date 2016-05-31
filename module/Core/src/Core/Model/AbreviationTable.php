@@ -19,18 +19,18 @@ namespace Core\Model;
      public function fetchAll($paginated=false)
      {
         if ($paginated) {
-             // create a new Select object for the table album
+             
              $select = new Select('abreviations');
-             // create a new result set based on the Album entity
+             
              $resultSetPrototype = new ResultSet();
              $resultSetPrototype->setArrayObjectPrototype(new Abreviation());
-             // create a new pagination adapter object
+             
              $paginatorAdapter = new DbSelect(
-             // our configured select object
+             
                  $select,
-                 // the adapter to run it against
+                 
                  $this->tableGateway->getAdapter(),
-                 // the result set to hydrate
+                
                  $resultSetPrototype
              );
              $paginator = new Paginator($paginatorAdapter);
@@ -53,19 +53,23 @@ namespace Core\Model;
      
      public function searchAbreviationsFromLetter($letter, $paginated=false){
          if ($paginated) {
-             // create a new Select object for the table album
+             
              $select = new Select('abreviations');
-             $select->where->like('iteme', $letter."%");
-             // create a new result set based on the Album entity
+             if(!empty($letter)){
+             	$select->where->like('iteme', $letter."%");
+             }else{
+             	$select->where->equalTo('iteme', "");
+             }
+             
              $resultSetPrototype = new ResultSet();
              $resultSetPrototype->setArrayObjectPrototype(new Abreviation());
-             // create a new pagination adapter object
+            
              $paginatorAdapter = new DbSelect(
-             // our configured select object
+             
                  $select,
-                 // the adapter to run it against
+                 
                  $this->tableGateway->getAdapter(),
-                 // the result set to hydrate
+                 
                  $resultSetPrototype
              );
              $paginator = new Paginator($paginatorAdapter);
@@ -80,7 +84,32 @@ namespace Core\Model;
 	     	return $rowset;     	
      }
      
-     public function searchAbreviationsFromCritereDeRecherche($critere_recherche, $mot_cle){
+     public function searchAbreviationsFromCritereDeRecherche($critere_recherche, $mot_cle, $paginated=false){
+     	
+     	if ($paginated) {
+     		     		 
+     		$select = new Select('abreviations');
+     		if($critere_recherche == 'iteme'){
+     			$select->where(array('iteme' => $mot_cle));
+     		}
+	     	if($critere_recherche == 'terme'){
+	     		$select->where(array('traduction' => $mot_cle));
+	     	}
+     		 
+     		$resultSetPrototype = new ResultSet();
+     		$resultSetPrototype->setArrayObjectPrototype(new Abreviation());
+     	
+     		$paginatorAdapter = new DbSelect(
+     				 
+     				$select,
+     				 
+     				$this->tableGateway->getAdapter(),
+     				 
+     				$resultSetPrototype
+     				);
+     		$paginator = new Paginator($paginatorAdapter);
+     		return $paginator;
+     	}
      	
      	if($critere_recherche == 'iteme'){
      		$rowset = $this->tableGateway->select(array('iteme' => $mot_cle));

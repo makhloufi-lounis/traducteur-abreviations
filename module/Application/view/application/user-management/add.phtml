@@ -1,3 +1,13 @@
+<style>
+form { 
+margin-left: 400px;
+}
+.btn-primary{
+	position: relative;
+	right: 40px;
+}
+</style>
+
 <?php
 /* @var $this \Zend\View\Renderer\PhpRenderer */
 Use Core\ViewHelper\ConfigHelper;
@@ -7,19 +17,21 @@ $this->headTitle($title);
 <?php
 $this->inlineScript ()->prependFile ( $this->configHelper(ConfigHelper::CDN_TRADUCTEUR) . '/js/administration/admin-user.js' );
 ?>
-
-<h2 class="page-header"><?php echo $this->escapeHtml($title); ?></h2>
-<?php
-$form->setAttribute ( 'class', 'form-horizontal' );
-$form->setAttribute ( 'action', $this->url ( 'application/usermanagement', array (
-		'action' => 'add' 
-) ) )->prepare ();?>
-<?php $this->form($form, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL);?>
-<?php echo $this->form ()->openTag ( $form );?>
-<?php echo $this->formRow ( $form->get ( 'username' ) );?>
-<?php echo $this->formRow ( $form->get ( 'email' ) );?>
-<?php echo $this->formRow ( $form->get ( 'password' ) );?>
-<?php echo $this->formRow ( $form->get ( 'role' ) );?>
-<?php echo $this->formRow ( $form->get ( 'soumettre' ) );?>
-<?php echo $this->form ()->closeTag ( $form );?>
+<div class="row" class="admin-user" class="hidden" style="text-align: center; margin-top: 10px; margin-bottom: 5px;">
+	<h3 class="page-header"><a style="position: relative; top: 2px;" href="<?php echo $this->url('application'); ?>"><i
+			class="glyphicon glyphicon-chevron-left"></i></a><?php echo $this->escapeHtml($title); ?></h3>
+</div>
+	<?php
+	$form->setAttribute ( 'class', 'form-horizontal' );
+	$form->setAttribute ( 'action', $this->url ( 'application/usermanagement', array (
+			'action' => 'add' 
+	) ) )->prepare ();?>
+	<?php $this->form($form, \TwbBundle\Form\View\Helper\TwbBundleForm::LAYOUT_HORIZONTAL);?>
+	<?php echo $this->form ()->openTag ( $form );?>
+	<?php echo $this->formRow ( $form->get ( 'username' ) );?>
+	<?php echo $this->formRow ( $form->get ( 'email' ) );?>
+	<?php echo $this->formRow ( $form->get ( 'password' ) );?>
+	<?php echo $this->formRow ( $form->get ( 'role' ) );?>
+	<?php echo $this->formRow ( $form->get ( 'soumettre' ) );?>
+	<?php echo $this->form ()->closeTag ( $form );?>
 

@@ -7,52 +7,57 @@ $this->headTitle($title);
 $this->inlineScript ()->prependFile ( $this->configHelper(ConfigHelper::CDN_TRADUCTEUR) .'/js/administration/admin-user.js' );
 ?>
 
-<div class="row">
-	<h3 class="page-header"><a href="<?php echo $this->url('application'); ?>"><i
-			class="fa fa-arrow-circle-o-left"></i></a>&nbsp;<?php echo sprintf($this->translate('Gestion des utilisateur')) ?></h3>
+<div class="row" class="admin-user" class="hidden" style="text-align: center; margin-top: 5px; margin-bottom: 5px;">
+	<h3 class="page-header"><a style="position: relative; top: 2px;" href="<?php echo $this->url('application'); ?>"><i
+			class="glyphicon glyphicon-chevron-left"></i></a><?php echo sprintf($this->translate('Gestion des utilisateur')) ?></h3>
 </div>
 <div class="row text-center">
-<a class="btn btn-success" href="<?php echo $this->url('application/usermanagement', array('action'=>'add'));?>">Ajouter un nouvel utilisateur</a>
+<a class="btn btn-primary" href="<?php echo $this->url('application/usermanagement', array('action'=>'add'));?>">Ajouter un nouvel utilisateur</a>
 </div>
 <div class="row">&nbsp;</div>
 <div class="row">
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th class="text-center">ID</th>
-				<th class="text-center">Username</th>
-				<th class="text-center">Email</th>
-				<th class="text-center">Role</th>
-				<th class="text-center">Action</th>
-			</tr>
-		</thead>
-		<tbody>
-		<?php foreach ($this->users as $user) : ?>
-			<tr class="text-center">
-				<td><?php echo $this->escapeHtml($user->getId());?></td>
-				<td><a
-					href="<?php
-			echo $this->url ( 'application/usermanagement', array (
-					'action' => 'edit',
-					'id' => $user->getId ()
-			) );
-			?>"><?php echo $this->escapeHtml($user->getUsername());?></a></td>
-				<td><?php echo $this->escapeHtml($user->getEmail());?></td>
-
-
-				<td><?php echo $this->escapeHtml($user->getRole());?></td>
-				<td>
-					<button class="btn btn-danger btn-sm deleterow"
-						user-nom="<?php echo $this->escapeHtml($user->getEmail());?>"
-						user-id="<?php echo $this->escapeHtml($user->getId()); ?>"
-						<?php
-if ($user->getRole () == User::ROLE_SUPERUSER) {
-				echo "disabled='disabled'";
-			}
-			?>>Supprimer cet utilisateur</button>
-				</td>
-			</tr>
-		<?php endforeach; ?>
-		</tbody>
-	</table>
+	<div class="panel panel-default">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th class="text-center" style="background-color: #F9F9F9;">ID</th>
+					<th class="text-center" style="background-color: #F9F9F9;">Username</th>
+					<th class="text-center" style="background-color: #F9F9F9;">Email</th>
+					<th class="text-center" style="background-color: #F9F9F9;">Role</th>
+					<th class="text-center" style="background-color: #F9F9F9;">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php foreach ($this->users as $user) : ?>
+				<tr class="text-center">
+					<td><?php echo $this->escapeHtml($user->getId());?></td>
+					<td><a
+						href="<?php
+				echo $this->url ( 'application/usermanagement', array (
+						'action' => 'edit',
+						'id' => $user->getId ()
+				) );
+				?>"><?php echo $this->escapeHtml($user->getUsername());?></a></td>
+					<td><?php echo $this->escapeHtml($user->getEmail());?></td>
+	
+	
+					<td><?php echo $this->escapeHtml($user->getRole());?></td>
+					<td>
+						<button class="btn btn-danger btn-xs deleterow"
+							user-nom="<?php echo $this->escapeHtml($user->getEmail());?>"
+							user-id="<?php echo $this->escapeHtml($user->getId()); ?>"
+							<?php
+								if ($user->getRole () == User::ROLE_SUPERUSER) {
+												echo "disabled='disabled'";
+								}
+							?>><span class="glyphicon glyphicon-trash" aria-hidden="true" style="color: #ffffff"></span>
+						</button>
+						
+						
+					</td>
+			 </tr>
+			<?php endforeach; ?>
+			</tbody>
+		</table>
+	</div>
 </div>

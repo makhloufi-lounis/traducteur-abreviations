@@ -1,17 +1,30 @@
+<style>
+form { 
+margin-left: 400px;
+}
+.btn-primary{
+	position: relative;
+	right: 40px;
+}
+</style>
+
 <?php
 /* @var $this \Zend\View\Renderer\PhpRenderer */
 Use Core\ViewHelper\ConfigHelper;
-$title = 'Adm - ACL Manager';
+$title = 'Gestion Des Utilisateurs';
 $this->headTitle($title);
 ?>
 <?php
 $this->inlineScript ()->prependFile ( $this->configHelper(ConfigHelper::CDN_PLACEDESFRANCHISES) . '/js/administration/admin-user.js' );
 ?>
-<h2 class="page-header"><?php echo $this->escapeHtml($title); ?></h2>
+<div class="row" class="admin-user" class="hidden" style="text-align: center; margin-top: 10px; margin-bottom: 5px;">
+	<h3 class="page-header"><a style="position: relative; top: 2px;" href="<?php echo $this->url('application'); ?>"><i
+			class="glyphicon glyphicon-chevron-left"></i></a><?php echo $this->escapeHtml($title); ?></h3>
+</div>
 
 <?php
 $form->setAttribute('class','form-horizontal');
-$form->setAttribute ( 'action', $this->url ( 'admin/aclmanager', array (
+$form->setAttribute ( 'action', $this->url ( 'home', array (
 		'action' => 'edit',
 		'id' => $user->getId () 
 ) ) )->prepare ();?>

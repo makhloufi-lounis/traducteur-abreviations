@@ -86,7 +86,7 @@ class UserForm extends Form {
 				'attributes' => array (
 						'type' => 'submit',
 						'value' => 'Sauvegarder',
-						'class' => 'btn btn-success' 
+						'class' => 'btn btn-primary',
 				),
 				'options' => array (
 						'label' => 'Valider',

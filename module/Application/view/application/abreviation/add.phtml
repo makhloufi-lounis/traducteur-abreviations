@@ -31,8 +31,8 @@ $form->setAttribute ( 'action', $this->url('addabreviation', array('action' => '
 $form->setAttribute ( 'method', 'post' );
 ?>
 <div class="row" class="admin-user" class="hidden" style="text-align: center; margin-top: 60px;">
-    <h3 class="page-header" style="margin-left: 40px;"><a href="<?php echo $this->url('application'); ?>"><i
-                class="fa fa-arrow-circle-o-left"></i></a>&nbsp;<?php echo sprintf($this->translate('Gestion du dictionaire')) ?></h3>
+    <h3 class="page-header" style="margin-left: 40px;"><a style="position: relative; top: 2px;"  href="<?php echo $this->url('application'); ?>"><i
+                class="glyphicon glyphicon-chevron-left"></i></a><?php echo sprintf($this->translate('Gestion du dictionaire')) ?></h3>
 </div>
 <?php echo $this->form()->openTag($form)?>
 <div class="row" class="hidden" id="idAdminDico">
