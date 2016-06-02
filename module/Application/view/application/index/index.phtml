@@ -128,7 +128,8 @@ $this->inlineScript ()->prependFile ( $this->configHelper(ConfigHelper::CDN_TRAD
 	        </tbody>
 	    </table>
     </div>
-   <?php elseif($this->flashMessenger()->hasMessages()):
+   <?php elseif(count($this->flashMessenger()) > 0):
+   			print_r($this->flashMessenger()->getMessages());
    			$messages = $this->flashMessenger()->getMessages();
    			foreach ($messages as $msg):
    	?>

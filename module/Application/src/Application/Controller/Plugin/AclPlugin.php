@@ -81,16 +81,13 @@ class AclPlugin extends AbstractPlugin {
 			
 			$auth = $e->getApplication ()->getServiceManager ()->get ( 'zfcuser_auth_service' );
 			$roleCurrent = ($auth->getIdentity () == null) ? User::ROLE_GUEST : $auth->getIdentity ()->getRole ();
-			if($roleCurrent == 'admin' || $roleCurrent == 'soustraitant'){
-				$roleCurrent = 'admin';
-			}
 			if (! $acl->hasResource ( $this->controllerName )) {
 				$acl->addResource ( $this->controllerName );
 			}
 			if (! $acl->isAllowed ( $roleCurrent, $this->controllerName, $this->actionName )) {
 					$router = $e->getRouter ();
 					$url = $router->assemble ( array (), array (
-							'name' => '/' 
+							'name' => 'application' 
 					) );
 					$response = $e->getResponse ();
 					$response->setStatusCode ( 302 );
@@ -102,7 +99,7 @@ class AclPlugin extends AbstractPlugin {
 					};
 					$e->getApplication ()->getEventManager ()->attach ( MvcEvent::EVENT_ROUTE, $stopCallBack, - 10000 );
 					return $response;
-				}
+			}
 		}
 	}
 }

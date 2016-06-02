@@ -37,6 +37,7 @@ class Client {
 		}
 		
 		$response = $this->httpClient->dispatch ( $request );
+		
 		// should interogate response status, throwing appropiate exceptions for error codes
 		return json_decode ( $response->getBody (), true );
 	}

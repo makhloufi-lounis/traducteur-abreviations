@@ -12,7 +12,6 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\ServiceManager\ServiceLocatorInterface;
-
 class IndexController extends AbstractActionController
 {
     /**
@@ -21,6 +20,7 @@ class IndexController extends AbstractActionController
     protected $serviceLocator;
 
     protected $abreviationTable;
+    
 
     public function indexAction()
     {

@@ -187,6 +187,9 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
+	'webservices' => array (
+				"dico-fusacq" => "/dico-fusacq/terme",
+	),
 	'module_layouts' => array (
 				'Application' => 'layout/accueil'
 	),

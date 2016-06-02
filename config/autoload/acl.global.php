@@ -9,19 +9,19 @@ return array (
 				User::ROLE_ADMIN => array (
 						'allow' => "all",
 						'deny' => array (
-								"aclmanager" => "all" 
+								"usermanagement" => "all" 
 						) 
 				),
 				User::ROLE_SOUSTRAITANT => array (
 						'allow' => "all",
 						'deny' => array (
-								"aclmanager" => "all" 
+								"usermanagement" => "all" 
 						) 
 				),
 				User::ROLE_GUEST => array (
 						'allow' => array (
 								"ZfcUser" => "all",
-								"adminindex" => array (
+								"index" => array (
 										"index" 
 								) 
 						),

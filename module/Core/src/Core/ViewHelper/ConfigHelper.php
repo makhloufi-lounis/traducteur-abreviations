@@ -3,9 +3,11 @@
 namespace Core\ViewHelper;
 
 
-
 class ConfigHelper extends TitreAbstractHelper {
+	
+	
 	protected $contact;
+	
 	const DNS_FUSACQ = 'dns_fusacq';
 	const DNS_PAYMENT_FUSACQ = 'dns_payment_fusacq';
 	const DNS_PLACEDESCOMMERCES = 'dns_placedescommerces';
@@ -46,4 +48,6 @@ class ConfigHelper extends TitreAbstractHelper {
 				break;
 		}
 	}
+	
+	
 }

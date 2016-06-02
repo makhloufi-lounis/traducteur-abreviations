@@ -1,3 +1,7 @@
+<?php
+/* @var $this \Zend\View\Renderer\PhpRenderer */
+use Core\Entity\User;
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -65,6 +69,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right" style="margin-right: 5px;">
                 <li class = 'admin-user'>
+                
                     <a href=<?php echo $this->url('application/usermanagement'); ?>>
                         <span class="glyphicon glyphicon-user"></span> UTILISATEURS
                     </a>
