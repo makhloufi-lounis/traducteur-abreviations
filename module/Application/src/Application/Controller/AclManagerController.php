@@ -26,6 +26,9 @@ class AclManagerController extends EntityUsingController {
 		) );
 		return $view;
 	}
+	
+	
+	//test
 	public function addAction() {
 		return $this->editAction ();
 	}
