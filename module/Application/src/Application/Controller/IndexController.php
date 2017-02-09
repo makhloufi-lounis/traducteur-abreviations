@@ -31,6 +31,8 @@ class IndexController extends AbstractActionController
             'paginator' => $paginator,
         	'route'	=> 'home',
         ));
+
+        //test
     }
 
     public function getAbreviationTable()
