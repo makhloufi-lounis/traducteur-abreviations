@@ -15,7 +15,6 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Model\Abreviation;          
 use Core\Form\AbreviationForm;
 
-
 class AbreviationController extends AbstractActionController
 {
 	/**
@@ -53,6 +52,7 @@ class AbreviationController extends AbstractActionController
             }
         }
         return array('abreviationForm' => $form);
+
     }
 	
 	public function editAction()
